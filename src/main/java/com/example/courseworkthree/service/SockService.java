@@ -27,10 +27,10 @@ public class SockService {
     public int getSockQuantity(Color color, Size size, Integer cottonMin, Integer cottonMax) {
         int total = 0;
         for (Map.Entry<Sock, Integer> entry : socks.entrySet()) {
-            if (color != null && entry.getKey().getColor().equals(color)) {
+            if (color != null && !entry.getKey().getColor().equals(color)) {
                 continue;
             }
-            if (size != null && entry.getKey().getSize().equals(size)) {
+            if (size != null && !entry.getKey().getSize().equals(size)) {
                 continue;
             }
             if (cottonMin != null && entry.getKey().getCottonPercent() < cottonMin) {
@@ -53,6 +53,7 @@ public class SockService {
         } else throw new InsufficientSockQuantityException("Нет носков");
     }
     public void issueSock(SockRequest sockRequest) {
+
         decreaseSockQuantity(sockRequest);
     }
     public void removeSock(SockRequest sockRequest) {
@@ -66,7 +67,7 @@ public class SockService {
         if (sockRequest.getQuantity() < 0) {
             throw new InvalidSockRequestException("Количество должно быть больше 0 ");
         }
-        if (sockRequest.getCottonPercent() < 0 || sockRequest.getCottonPercent() > 100) {
+        if (sockRequest.getCottonPercent() <= 0 || sockRequest.getCottonPercent() > 100) {
             throw new InvalidSockRequestException("Процент хлопка должно быть в пределах 0...100");
         }
     }
@@ -74,6 +75,4 @@ public class SockService {
     private Sock mapToSock(SockRequest sockRequest) {
         return new Sock(sockRequest.getColor(), sockRequest.getSize(), sockRequest.getCottonPercent());
     }
-
-
 }
