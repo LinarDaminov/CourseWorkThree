@@ -6,6 +6,10 @@ import com.example.courseworkthree.exception.InvalidSockRequestException;
 import com.example.courseworkthree.model.Color;
 import com.example.courseworkthree.model.Size;
 import com.example.courseworkthree.model.Sock;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.fasterxml.jackson.databind.util.Converter;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -76,3 +80,5 @@ public class SockService {
         return new Sock(sockRequest.getColor(), sockRequest.getSize(), sockRequest.getCottonPercent());
     }
 }
+
+
